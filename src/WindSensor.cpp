@@ -15,13 +15,14 @@ WindSensor::WindSensor(string port, float speed_max, bool fake){
     if(!fake){
         if(serial.setup(port, 9600)) //open the port
             ofLog() << "Serial port to wind sensor opened";
+        
         // initialize the values with zero
         direction = 0;
         speed = 0;
     }
     
     else {
-        "Faking wind sensor data is aktivated. Wind sensor data will be random.";
+        ofLog() << "Faking wind sensor data is aktivated. Wind sensor data will be random.";
         // initialize the values with some value
         direction = 20;
         speed = 5;
@@ -38,16 +39,17 @@ void WindSensor::update(){
     if(!fake){
         unsigned char buffer[16];
         ofLog() << "trying to update wind sensor";
-        if(serial.readBytes(buffer, 16) == 16){
+        int bytes_read = serial.readBytes(buffer, 16);
+        if(bytes_read == 16){
             ofLog() << "got 16 bytes";
             // check start and end
             if(buffer[0] == '0x02' && buffer[15] == '0x03'){
                 speed = 10 * buffer[1] + buffer[2] + 0.1 * buffer[4];
                 direction = 100 * buffer[6] + 10 * buffer[7] + buffer[8] + 0.1 * buffer[10];
-                ofLog() << "updated wind sensor";
+                ofLog() << "[wind] updated wind sensor: speed=" << speed << " direction=" << direction;
             }
         }
-        else{ ofLog() << "didn't get 16 bytes from sensor"; }
+        else{ ofLog() << "only got " << bytes_read << " of the expected 16 bytes from sensor"; }
     }
     else if ( ofGetElapsedTimef() - last_fake_update > 20){
         last_fake_update = ofGetElapsedTimef();
@@ -60,7 +62,7 @@ void WindSensor::update(){
         if(direction >= 360) direction-=360;
         else if (direction < 0) direction+= 360;
         
-        ofLog() << "[wind] " << speed << "," << direction;
+        ofLog() << "[fake-wind] " << speed << "," << direction;
     }
 }
 

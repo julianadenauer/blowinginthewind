@@ -6,6 +6,7 @@ void testApp::setup(){
     ofLogToFile(ofGetTimestampString("%Y-%m-%d") + "_startup.log");
     
 #ifdef ENABLE_OPENGL
+    ofLog() << "openGL is enabled";
     ofEnableAlphaBlending();
     ofSetVerticalSync(true);
     ofSetFrameRate(60);
@@ -19,6 +20,7 @@ void testApp::setup(){
 #endif
     
     // load settings from xml file
+    ofLog() << "load settings from xml file";
     loadSettings();
     
     // init the colors
@@ -109,6 +111,7 @@ void testApp::setup(){
     
     // initialize variables for time-based movements
     current_hour_color_id = 0;
+    ofLog() << "set current_hour_color_id to " << current_hour_color_id;
     
     initialized_minute = -1;
     day_init_done = false;
@@ -337,6 +340,7 @@ void testApp::update(){
     //TODO: clean this up! this has gotten really ugly!
     // turn the heads to the front before we start
     if(current_hour == 17 && current_minute == 59 && current_second < 30){
+        ofLog() << "mooving both heads to the still and blowing position";
         mh1.setTarget(stillandblowing_mh1_x, stillandblowing_mh1_y);
         mh2.setTarget(stillandblowing_mh2_x, stillandblowing_mh2_y);
     }
@@ -363,11 +367,11 @@ void testApp::update(){
             
             // daily initialisations
             if(!day_init_done){
-                ofLogToFile(ofGetTimestampString("%Y-%m-%d") + ".log");
-                
-                current_hour_color_id = -1;
                 day_init_done = true;
                 
+                
+                ofLogToFile(ofGetTimestampString("%Y-%m-%d") + ".log");
+                current_hour_color_id = -1;
                 state = -1;
 
                 // change the color switching mode
@@ -375,7 +379,7 @@ void testApp::update(){
                 else if(current_color_mode == color_mode_wheel) current_color_mode = color_mode_plus3;
                 else current_color_mode = color_mode_random;
                 
-                ofLog() << "starting the day with color 0. today's color mode is " << current_color_mode;
+                ofLog() << "today's color mode is " << current_color_mode;
             }
             
             // hourly routine
@@ -394,7 +398,7 @@ void testApp::update(){
                 mh1.setColor(colors[current_hour_color_id]);
                 mh2.setColor(colors[current_hour_color_id]);
                 
-                ofLog() << "setting the hour's color on both heads to " << current_hour_color_id;
+                ofLog() << "setting the hour's color on both heads to #" << current_hour_color_id << ": " << colors[current_hour_color_id];
             }
             
             // switch states every 5 minutes
@@ -405,6 +409,7 @@ void testApp::update(){
                     current_color_wheel_id++;
                     if(current_color_wheel_id == 7) current_color_wheel_id = 0;
                     mh2.setColor(colors[current_color_wheel_id]);
+                    ofLog() << "setting current_color_wheel_id for mh2 to #" << current_color_wheel_id << ": " << colors[current_color_wheel_id];
                 }
                 nextState();
             }
@@ -420,7 +425,7 @@ void testApp::update(){
                     case 20:
                     case 40:
                         mh2.setColor(colors[current_hour_color_id]);
-                        ofLog() << "switching color of mh2 back to the hour's color: " << current_hour_color_id;
+                        ofLog() << "switching color of mh2 back to the hour's color #" << current_hour_color_id << ": " << colors[current_hour_color_id];
                         break;
                     case 10:
                     case 30:
@@ -429,7 +434,7 @@ void testApp::update(){
                         do {random_color_id = (int) floor(ofRandom(6)+0.5f);}
                         while(random_color_id == current_hour_color_id && random_color_id > 6); // keep generating numbers while it is not different from the hourly color (and make sure that it does not become larger than 6 by accident
                         mh2.setColor(colors[random_color_id]);
-                        ofLog() << "switching color of mh2 to random color: " << random_color_id;
+                        ofLog() << "switching color of mh2 to random color #" << random_color_id << ": " << colors[random_color_id];
                         break;
                 }
             }
@@ -450,18 +455,18 @@ void testApp::update(){
                     case 20:
                     case 40:
                         mh2.setColor(colors[current_hour_color_id]);
-                        ofLog() << "switching color of mh2 back to the hour's color: " << current_hour_color_id;
+                        ofLog() << "switching color of mh2 back to the hour's color #" << current_hour_color_id << ": " << colors[current_hour_color_id];
                         break;
                     case 10:
                     case 30:
                     case 50:
                         if(current_hour_color_id + 3 <= 6){
                             mh2.setColor(colors[current_hour_color_id + 3]);
-                            ofLog() << "switching color of mh2 to +3: " << current_hour_color_id + 3;
+                            ofLog() << "switching color of mh2 to +3: #" << current_hour_color_id + 3 << ": " << colors[current_hour_color_id + 3];
                         }
                         else {
                             mh2.setColor(colors[current_hour_color_id - 4]);
-                            ofLog() << "switching color of mh2 to +3: " << current_hour_color_id - 4;
+                            ofLog() << "switching color of mh2 to +3: #" << current_hour_color_id - 4 << ": " << colors[current_hour_color_id - 4];
                         }
                         break;
                 }
@@ -476,18 +481,18 @@ void testApp::update(){
             if(current_color_wheel_id == 7) current_color_wheel_id = 0;
 
             mh2.fadeToColor(colors[current_color_wheel_id], 7.5 * 60.0);
-            ofLog() << "fading mh2 to next color: " << current_color_wheel_id;
+            ofLog() << "fading mh2 to next color #" << current_color_wheel_id << ": " << colors[current_color_wheel_id];
             
             // fade both heads to the next hour color at the end of the hour
             if(mh2.getColor() == colors[current_hour_color_id] && current_minute != 0){
                 if(current_hour != 0){
                     mh1.fadeToColor(colors[current_color_wheel_id], 7.5 * 60.0);
-                    ofLog() << "fading mh1 to next hour color: " << current_color_wheel_id;
+                    ofLog() << "fading mh1 to next hour color #" << current_color_wheel_id << ": " << colors[current_color_wheel_id];
                 }
                 // make a fade to white at the end
                 else {
                     mh1.fadeToColor(ofColor(255, 255, 255), 7.5 * 60.0);
-                    ofLog() << "fading to white for the end" << current_color_wheel_id;
+                    ofLog() << "fading to white for the end";
                 }
             }
             
@@ -503,7 +508,7 @@ void testApp::update(){
         mh1.totalFixtureReset();
         mh2.totalFixtureReset();
         day_init_done = false;
-//        ofLog() << "resetting the heads";
+//        ofLog() << "resetting the heads"; // diese ausgabe wŸrde die ganze nacht Ÿber 60mal pro sekunde ausgegeben werden...
     }
     
     // update all the movement stuff
@@ -569,8 +574,7 @@ void testApp::updateStates(){
     if(rotationCenter.x < circle_area_left) rotationCenter.x = circle_area_left;
     if(rotationCenter.y > circle_area_top) rotationCenter.y = circle_area_top;
     if(rotationCenter.y < circle_area_bottom) rotationCenter.y = circle_area_bottom;
-    
-    ofVec2f mh1ToMouse, mh2ToMh1;
+
     
     // END OF WIND SENSOR STUFF
     // **********************************************
