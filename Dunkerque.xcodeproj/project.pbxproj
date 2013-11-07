@@ -607,6 +607,8 @@
 /* Begin PBXProject section */
 		E4B69B4C0A3A1720003C02F2 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = E4B69B4D0A3A1720003C02F2 /* Build configuration list for PBXProject "Dunkerque" */;
 			compatibilityVersion = "Xcode 2.4";
 			developmentRegion = English;
@@ -755,37 +757,13 @@
 					../../../addons/ofxRange/src,
 					../../../addons/ofxTextInputField/libs,
 					../../../addons/ofxTextInputField/src,
-					../../../addons/ofxTimecode/libs,
-					../../../addons/ofxTimecode/src,
-					../../../addons/ofxTimeline/libs,
-					../../../addons/ofxTimeline/libs/kiss,
-					../../../addons/ofxTimeline/libs/kiss/include,
-					../../../addons/ofxTimeline/libs/kiss/src,
-					../../../addons/ofxTimeline/libs/ofOpenALSoundPlayer_TimelineAdditions,
-					../../../addons/ofxTimeline/libs/ofOpenALSoundPlayer_TimelineAdditions/src,
-					../../../addons/ofxTimeline/libs/openal,
-					../../../addons/ofxTimeline/libs/openal/include,
-					../../../addons/ofxTimeline/libs/openal/include/AL,
-					../../../addons/ofxTimeline/libs/openal/libs,
-					../../../addons/ofxTimeline/libs/sndfile,
-					../../../addons/ofxTimeline/libs/sndfile/include,
-					../../../addons/ofxTimeline/libs/sndfile/lib,
-					../../../addons/ofxTimeline/libs/sndfile/lib/osx,
-					../../../addons/ofxTimeline/libs/sndfile/redist,
-					../../../addons/ofxTimeline/src,
-					../../../addons/ofxTween/libs,
-					../../../addons/ofxTween/src,
-					../../../addons/ofxTween/src/Easings,
 				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
 					"-mtune=native",
 				);
-				OTHER_LDFLAGS = (
-					"$(OF_CORE_LIBS)",
-					../../../addons/ofxTimeline/libs/sndfile/lib/osx/libsndfile.a,
-				);
+				OTHER_LDFLAGS = "$(OF_CORE_LIBS)";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -824,37 +802,13 @@
 					../../../addons/ofxRange/src,
 					../../../addons/ofxTextInputField/libs,
 					../../../addons/ofxTextInputField/src,
-					../../../addons/ofxTimecode/libs,
-					../../../addons/ofxTimecode/src,
-					../../../addons/ofxTimeline/libs,
-					../../../addons/ofxTimeline/libs/kiss,
-					../../../addons/ofxTimeline/libs/kiss/include,
-					../../../addons/ofxTimeline/libs/kiss/src,
-					../../../addons/ofxTimeline/libs/ofOpenALSoundPlayer_TimelineAdditions,
-					../../../addons/ofxTimeline/libs/ofOpenALSoundPlayer_TimelineAdditions/src,
-					../../../addons/ofxTimeline/libs/openal,
-					../../../addons/ofxTimeline/libs/openal/include,
-					../../../addons/ofxTimeline/libs/openal/include/AL,
-					../../../addons/ofxTimeline/libs/openal/libs,
-					../../../addons/ofxTimeline/libs/sndfile,
-					../../../addons/ofxTimeline/libs/sndfile/include,
-					../../../addons/ofxTimeline/libs/sndfile/lib,
-					../../../addons/ofxTimeline/libs/sndfile/lib/osx,
-					../../../addons/ofxTimeline/libs/sndfile/redist,
-					../../../addons/ofxTimeline/src,
-					../../../addons/ofxTween/libs,
-					../../../addons/ofxTween/src,
-					../../../addons/ofxTween/src/Easings,
 				);
 				OTHER_CPLUSPLUSFLAGS = (
 					"-D__MACOSX_CORE__",
 					"-lpthread",
 					"-mtune=native",
 				);
-				OTHER_LDFLAGS = (
-					"$(OF_CORE_LIBS)",
-					../../../addons/ofxTimeline/libs/sndfile/lib/osx/libsndfile.a,
-				);
+				OTHER_LDFLAGS = "$(OF_CORE_LIBS)";
 				SDKROOT = macosx;
 			};
 			name = Release;
