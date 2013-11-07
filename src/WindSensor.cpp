@@ -51,12 +51,14 @@ void WindSensor::update(){
         }
         else{ ofLog() << "only got " << bytes_read << " of the expected 16 bytes from sensor"; }
     }
-    else if ( ofGetElapsedTimef() - last_fake_update > 20){
+    else if ( ofGetElapsedTimef() - last_fake_update > 60){
         last_fake_update = ofGetElapsedTimef();
         
-        speed += ofRandom(-3.0, 3.0);
-        if(speed < 0) speed = 0;
-        else if (speed > speed_max) speed = speed_max;
+//        speed += ofRandom(-3.0, 3.0);
+//        if(speed < 0) speed = 0;
+//        else if (speed > speed_max) speed = speed_max;
+        
+        speed = 5;
         
         direction += ofRandom(-50.0, 50.0);
         if(direction >= 360) direction-=360;
