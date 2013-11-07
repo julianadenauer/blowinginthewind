@@ -413,10 +413,13 @@ void testApp::update(){
                 // wenn der vorherige state der state_overlap_white state war, dann muss man bei color_wheel mode einen harten farbwechsel machen
                 if(state == state_overlap_white && current_color_mode == color_mode_wheel){
                     // increase because this wasn't done during the state_overlap_white
+                    mh2.setColor(colors[current_color_wheel_id]);
+                    ofLog() << "coming out of the white mode. setting the color to #" << current_color_wheel_id << ": " << colors[current_color_wheel_id];
                     current_color_wheel_id++;
                     if(current_color_wheel_id == 7) current_color_wheel_id = 0;
-                    mh2.setColor(colors[current_color_wheel_id]);
-                    ofLog() << "setting current_color_wheel_id for mh2 to #" << current_color_wheel_id << ": " << colors[current_color_wheel_id];
+                    mh2.fadeToColor(colors[current_color_wheel_id], 60 * 5);
+                    
+                    ofLog() << "starting a quick fade (only 5min) to the next color #" << current_color_wheel_id << ": " << colors[current_color_wheel_id];
                 }
                 nextState();
             }
