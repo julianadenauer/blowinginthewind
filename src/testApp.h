@@ -14,6 +14,7 @@
 #include "MSAPhysics2D.h"
 #include "ofxLibArtnet.h"
 #include "WindSensor.h"
+#include "CustomTime.h"
 
 #ifdef ENABLE_OPENGL
     #include "ofxAutoControlPanel.h"
@@ -45,6 +46,8 @@ public:
     
     MovingHead mh1, mh2;
     ofxLibArtnet::Node node;
+    
+    CustomTime myTime;
     
     WindSensor* wind_sensor;
     
@@ -82,7 +85,6 @@ public:
     enum colorMode { color_mode_random, color_mode_wheel, color_mode_plus3 } current_color_mode;    // list of the different color changing modes
     
     int initialized_minute;
-    int current_hour, current_minute, current_second;
     
     
  
@@ -101,7 +103,8 @@ public:
     int mh2_focus, mh2_defocus, mh2_zoom, mh2_iris, mh2_dimmer;
     float mh2_location_x, mh2_location_y, mh2_location_z;
     float building_width, building_height;
-    bool auto_state_shift, draw_debug, manual_time;
+    bool auto_state_shift, draw_debug;
+    int time_mode;
     float scaling;
     float stillandblowing_mh1_x, stillandblowing_mh1_y, stillandblowing_mh2_x, stillandblowing_mh2_y;
     float mirror_speed;

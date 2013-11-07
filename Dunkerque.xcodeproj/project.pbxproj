@@ -12,6 +12,7 @@
 		54057c4780e1aac59ca6f97cf066acec /* artnet.c in Sources */ = {isa = PBXBuildFile; fileRef = f5cc14825b4d354a9f8f6357dd2933a9 /* artnet.c */; };
 		5a4349e9754d6fa14c0f2a3a1abc30b6 /* tinyxmlparser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = fc5da1c87211d4f6377da7199d8c5a1e /* tinyxmlparser.cpp */; };
 		63b57ac5bf4ef088491e0317dbb2ecaa /* ofxXmlSettings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 50df87d612c5aae17aafa6c02c6bc570 /* ofxXmlSettings.cpp */; };
+		6C7023D5182BE4FE00559A08 /* CustomTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6C7023D3182BE4FE00559A08 /* CustomTime.cpp */; };
 		8163663f86509411301a6fa1d7a5bfc4 /* misc.c in Sources */ = {isa = PBXBuildFile; fileRef = 17d8f7760eba11295147fe19009bc1ba /* misc.c */; };
 		861e600dc7c1f17a1c2b3683950d6c56 /* tod.c in Sources */ = {isa = PBXBuildFile; fileRef = 31632dc1fabdc2f01afe934e96118d3a /* tod.c */; };
 		933a2227713c720ceff80fd967d0a8ee /* tinyxml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2b40eda85beb63e46785bc299a638898 /* tinyxml.cpp */; };
@@ -111,6 +112,8 @@
 		2fa183bd8942e7f24bc37189d2c7841a /* misc.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = misc.h; path = ../../../addons/ofxLibArtnet/libs/artnet/misc.h; sourceTree = SOURCE_ROOT; };
 		31632dc1fabdc2f01afe934e96118d3a /* tod.c */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.c; fileEncoding = 30; name = tod.c; path = ../../../addons/ofxLibArtnet/libs/artnet/tod.c; sourceTree = SOURCE_ROOT; };
 		50df87d612c5aae17aafa6c02c6bc570 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxXmlSettings.cpp; path = ../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp; sourceTree = SOURCE_ROOT; };
+		6C7023D3182BE4FE00559A08 /* CustomTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CustomTime.cpp; sourceTree = "<group>"; };
+		6C7023D4182BE4FE00559A08 /* CustomTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTime.h; sourceTree = "<group>"; };
 		7e56a83bf2909b1811adb15c78487f81 /* ofxLibArtnet.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxLibArtnet.h; path = ../../../addons/ofxLibArtnet/src/ofxLibArtnet.h; sourceTree = SOURCE_ROOT; };
 		832bdc407620cdba568b713d2252c43c /* tinyxmlerror.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = tinyxmlerror.cpp; path = ../../../addons/ofxXmlSettings/libs/tinyxmlerror.cpp; sourceTree = SOURCE_ROOT; };
 		B97ED65E179C4F2800AF1BF5 /* guiBaseObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guiBaseObject.cpp; sourceTree = "<group>"; };
@@ -563,8 +566,10 @@
 				B9B6A96F177AF5D00078A330 /* MovingHead.cpp */,
 				B9B6A970177AF5D00078A330 /* MovingHead.h */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
-				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
+				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
+				6C7023D3182BE4FE00559A08 /* CustomTime.cpp */,
+				6C7023D4182BE4FE00559A08 /* CustomTime.h */,
 				B98BC54F17AFE64A00B2523F /* WindSensor.cpp */,
 				B98BC55017AFE64A00B2523F /* WindSensor.h */,
 			);
@@ -689,6 +694,7 @@
 				B97ED69D179C4F2800AF1BF5 /* guiTextBase.cpp in Sources */,
 				B97ED69E179C4F2800AF1BF5 /* guiType2DSlider.cpp in Sources */,
 				B97ED69F179C4F2800AF1BF5 /* guiTypeButtonSlider.cpp in Sources */,
+				6C7023D5182BE4FE00559A08 /* CustomTime.cpp in Sources */,
 				B97ED6A0179C4F2800AF1BF5 /* guiTypeChartPlotter.cpp in Sources */,
 				B97ED6A1179C4F2800AF1BF5 /* guiTypeCustom.cpp in Sources */,
 				B97ED6A2179C4F2800AF1BF5 /* guiTypeDrawable.cpp in Sources */,
@@ -764,7 +770,7 @@
 					"-mtune=native",
 				);
 				OTHER_LDFLAGS = "$(OF_CORE_LIBS)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.8;
 			};
 			name = Debug;
 		};
@@ -809,7 +815,7 @@
 					"-mtune=native",
 				);
 				OTHER_LDFLAGS = "$(OF_CORE_LIBS)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.8;
 			};
 			name = Release;
 		};

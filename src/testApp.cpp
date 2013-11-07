@@ -117,10 +117,16 @@ void testApp::setup(){
     day_init_done = false;
     program_init_done = false;
     
-    current_hour = 17; // todo: take this out again
-    current_minute = 59;
-    current_second = 0;
-    
+    // setup the timing module
+    if (time_mode == 0){
+        myTime.setup(myTime.REAL_TIME);
+    }
+    else if(time_mode == 1){
+        myTime.setup(myTime.DELTA_TIME, 17, 59, 0);
+    }
+    else if (time_mode == 2){
+        myTime.setup(myTime.MANUAL_TIME, 17, 59, 0);
+    }
     
 #ifdef ENABLE_OPENGL
     // init the panel
@@ -149,6 +155,10 @@ void testApp::setup(){
 #else
     last_update = ofGetElapsedTimef();
 #endif
+    
+    
+
+    
     
 }
 
@@ -198,7 +208,8 @@ void testApp::loadSettings(){
         
         // program
         auto_state_shift    = ofToBool(xmlSettings.getValue("program:auto_state_shift", "true"));
-        manual_time         = ofToBool(xmlSettings.getValue("program:manual_time", "false"));
+        time_mode           = xmlSettings.getValue("program:time_mode", 0);
+        
         
         // *** ANIMATIONS ***
         // still and blowing
@@ -297,6 +308,8 @@ void testApp::loadSettings(){
 //--------------------------------------------------------------
 void testApp::update(){
     
+    myTime.update();
+    
 #ifdef ENABLE_OPENGL
     // apply the settings from the panel
     mh1.setFocus(panel.getValueI("mh1_focus"));
@@ -323,12 +336,6 @@ void testApp::update(){
     else last_update = ofGetElapsedTimef();
 #endif
     
-    if(!manual_time){
-        current_minute = ofGetMinutes();
-        current_hour = ofGetHours();
-        current_second = ofGetSeconds();
-    }
-    
     // update the wind sensor
     wind_sensor->update();
     
@@ -339,31 +346,31 @@ void testApp::update(){
     
     //TODO: clean this up! this has gotten really ugly!
     // turn the heads to the front before we start
-    if(current_hour == 17 && current_minute == 59 && current_second < 30){
-        ofLog() << "mooving both heads to the still and blowing position";
+    if(myTime.getHours() == 17 && myTime.getMinutes() == 59 && myTime.getSeconds() < 30){
+        ofLog() << "moving both heads to the still and blowing position";
         mh1.setTarget(stillandblowing_mh1_x, stillandblowing_mh1_y);
         mh2.setTarget(stillandblowing_mh2_x, stillandblowing_mh2_y);
     }
     // go into the "still and blowing" state
-    else if((current_minute == 14 || current_minute == 29 || current_minute == 44 || current_minute == 59) && current_second >= 30){
-        if(current_hour == 17 && (current_minute == 59)){
+    else if((myTime.getMinutes() == 14 || myTime.getMinutes() == 29 || myTime.getMinutes() == 44 || myTime.getMinutes() == 59) && myTime.getSeconds() >= 30){
+        if(myTime.getHours() == 17 && (myTime.getMinutes() == 59)){
             switchState(state_stillandblowing_white);
         }
-        else if (current_hour > 17 || current_hour < 1)
+        else if (myTime.getHours() > 17 || myTime.getHours() < 1)
             switchState(state_stillandblowing);
         
 //        // the state before this was white => set back the colors
-//        if(current_minute == 59 && current_hour != 17) {
+//        if(myTime.getMinutes() == 59 && myTime.getHours() != 17) {
 //            mh1.setColor(colors[current_hour_color_id]);
 //            mh2.setColor(colors[current_hour_color_id]);
 //        }
     }
     
-    else if(current_hour >= 18 || current_hour < 1 ){
+    else if(myTime.getHours() >= 18 || myTime.getHours() < 1 ){
         
-        if(initialized_minute != current_minute)
+        if(initialized_minute != myTime.getMinutes())
         {
-            initialized_minute = current_minute;
+            initialized_minute = myTime.getMinutes();
             
             // daily initialisations
             if(!day_init_done){
@@ -383,16 +390,16 @@ void testApp::update(){
             }
             
             // hourly routine
-            if(current_minute == 0){
+            if(myTime.getMinutes() == 0){
                 // switch to the inital state
                 current_state_id = 0;
                 switchState(program_states[current_state_id]);
                 
                 // do this rather than shifting to the next color to make shure that this also works when the installation has turned on after 6pm
-                if(current_hour == 0)
+                if(myTime.getHours()== 0)
                     current_hour_color_id = 6;
-                if(current_hour >= 18 )
-                    current_hour_color_id = current_hour - 18;
+                if(myTime.getHours()>= 18 )
+                    current_hour_color_id = myTime.getHours()- 18;
                 
                 // apply the hour color both movingheads, stopping eventual fadings
                 mh1.setColor(colors[current_hour_color_id]);
@@ -402,7 +409,7 @@ void testApp::update(){
             }
             
             // switch states every 5 minutes
-            else if(current_minute % 5 == 0 && auto_state_shift){                
+            else if(myTime.getMinutes() % 5 == 0 && auto_state_shift){                
                 // wenn der vorherige state der state_overlap_white state war, dann muss man bei color_wheel mode einen harten farbwechsel machen
                 if(state == state_overlap_white && current_color_mode == color_mode_wheel){
                     // increase because this wasn't done during the state_overlap_white
@@ -421,7 +428,7 @@ void testApp::update(){
             
             // random color select aus den 6 farben (die stunden-farbe wird ausgeschlossen)
             if(current_color_mode == color_mode_random){
-                switch(current_minute){
+                switch(myTime.getMinutes()){
                     case 20:
                     case 40:
                         mh2.setColor(colors[current_hour_color_id]);
@@ -441,7 +448,7 @@ void testApp::update(){
             
             else if(current_color_mode == color_mode_wheel){
                 // set the color wheel id back every hour
-                if(current_minute == 0){
+                if(myTime.getMinutes() == 0){
                     current_color_wheel_id = current_hour_color_id;
                     ofLog() << "settings back the color wheel";
                 }
@@ -451,7 +458,7 @@ void testApp::update(){
             
             // color + 3
             else if (current_color_mode == color_mode_plus3){
-                switch(current_minute){
+                switch(myTime.getMinutes()){
                     case 20:
                     case 40:
                         mh2.setColor(colors[current_hour_color_id]);
@@ -484,8 +491,8 @@ void testApp::update(){
             ofLog() << "fading mh2 to next color #" << current_color_wheel_id << ": " << colors[current_color_wheel_id];
             
             // fade both heads to the next hour color at the end of the hour
-            if(mh2.getColor() == colors[current_hour_color_id] && current_minute != 0){
-                if(current_hour != 0){
+            if(mh2.getColor() == colors[current_hour_color_id] && myTime.getMinutes() != 0){
+                if(myTime.getHours()!= 0){
                     mh1.fadeToColor(colors[current_color_wheel_id], 7.5 * 60.0);
                     ofLog() << "fading mh1 to next hour color #" << current_color_wheel_id << ": " << colors[current_color_wheel_id];
                 }
@@ -500,7 +507,7 @@ void testApp::update(){
         }
     }
     
-    else if(current_hour == 1 && current_minute == 0 && current_second < 30){
+    else if(myTime.getHours()== 1 && myTime.getMinutes() == 0 && myTime.getSeconds() < 30){
         switchState(state_stillandblowing_white);
     }
     
@@ -1005,7 +1012,7 @@ void testApp::draw(){
     ofDrawBitmapString("focus = " + ofToString(mh2.getFocus()), 150, ofGetHeight()-30);
     ofDrawBitmapString("speed = " + ofToString(mh2.getSpeed()), 150, ofGetHeight()-15);
         
-    ofDrawBitmapString(ofToString(current_hour, 2, '0') + ":" + ofToString(current_minute, 2, '0') + ":" + ofToString(current_second, 2, '0'), 300, ofGetHeight()-75);
+    ofDrawBitmapString(ofToString(myTime.getHours(), 2, '0') + ":" + ofToString(myTime.getMinutes(), 2, '0') + ":" + ofToString(myTime.getSeconds(), 2, '0'), 300, ofGetHeight()-75);
     
     if(draw_debug){
         switch(state){
@@ -1035,33 +1042,11 @@ void testApp::keyPressed(int key){
             break;
             
         case '+':
-            if(current_hour == 1 && current_minute == 15){
-                current_hour = 17;
-                current_minute = 58;
-            }
-            
-            if(current_second == 0)
-                current_second = 30;
-            else {                
-                current_minute++;
-                current_second = 0;
-                if(current_minute == 60){
-                    current_minute = 0;
-                    current_hour++;
-                    if(current_hour == 24)
-                        current_hour = 0;
-                    }
-            }
+            myTime.addMinutes(5);
             break;
         
         case '-':
-            current_minute--;
-            if(current_minute == -1){
-                current_minute = 0;
-                current_hour--;
-                if(current_hour < 0)
-                    current_hour = 23;
-            }
+            myTime.addMinutes(-5);
             break;
             
                         
