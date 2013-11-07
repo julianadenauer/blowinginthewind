@@ -43,7 +43,7 @@ void WindSensor::update(){
         if(bytes_read == 16){
             ofLog() << "got 16 bytes";
             // check start and end
-            if(buffer[0] == '0x02' && buffer[15] == '0x03'){
+            if(buffer[0] == 2 && buffer[15] == 3){ // TODO: hier nochmal genau schauen, ob das so funktioniert!
                 speed = 10 * buffer[1] + buffer[2] + 0.1 * buffer[4];
                 direction = 100 * buffer[6] + 10 * buffer[7] + buffer[8] + 0.1 * buffer[10];
                 ofLog() << "[wind] updated wind sensor: speed=" << speed << " direction=" << direction;
