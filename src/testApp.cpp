@@ -492,7 +492,8 @@ void testApp::update(){
                 // make a fade to white at the end
                 else {
                     mh1.fadeToColor(ofColor(255, 255, 255), 7.5 * 60.0);
-                    ofLog() << "fading to white for the end";
+                    mh2.fadeToColor(ofColor(255, 255, 255), 7.5 * 60.0);
+                    ofLog() << "fading both heads to white for the end";
                 }
             }
             
