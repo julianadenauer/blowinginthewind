@@ -13,9 +13,9 @@
 
 class CustomTime {
 public:
-    CustomTime(){}
+    CustomTime(){ timeMode = REAL_TIME; seconds = ofGetSeconds(); minutes = ofGetMinutes(); hours = ofGetHours(); }
     
-    void setup(int mode, int start_hours = 0, int start_minutes = 0, int start_seconds = 0);
+    void setup(int mode = 0, int start_hours = 0, int start_minutes = 0, int start_seconds = 0);
     void update();
     
     void addMinutes(int numMinutes);
