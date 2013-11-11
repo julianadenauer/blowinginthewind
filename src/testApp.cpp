@@ -71,7 +71,7 @@ void testApp::setup(){
     
     if(activate_network){
         ofLog() << "setting up network";
-        node.setup(local_ip_address, true);
+        if(activate_network) node.setup(local_ip_address, true); // TODO: netzwerk wieder aktivieren
     }
 
     // setup the heads
@@ -155,10 +155,6 @@ void testApp::setup(){
 #else
     last_update = ofGetElapsedTimef();
 #endif
-    
-    
-
-    
     
 }
 
