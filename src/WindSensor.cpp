@@ -33,30 +33,29 @@ WindSensor::WindSensor(string port, float speed_max, bool fake){
 }   
 
 void WindSensor::update(){
-//    while(serial.available())
-//        ofLog() << serial.readByte();
 
     if(!fake){
-        unsigned char buffer[16];
-        ofLog() << "trying to update wind sensor";
-        int bytes_read = serial.readBytes(buffer, 16);
-        if(bytes_read == 16){
-            ofLog() << "got 16 bytes";
-            // check start and end
-            if(buffer[0] == 2 && buffer[15] == 3){ // TODO: hier nochmal genau schauen, ob das so funktioniert!
-                speed = 10 * buffer[1] + buffer[2] + 0.1 * buffer[4];
-                direction = 100 * buffer[6] + 10 * buffer[7] + buffer[8] + 0.1 * buffer[10];
-                ofLog() << "[wind] updated wind sensor: speed=" << speed << " direction=" << direction;
+        
+        if(serial.available()){
+            // check if we have the start byte
+            if(serial.readByte() == '\x02'){
+                
+                // if we have the start byte, read the rest
+                unsigned char buffer[15];
+                int bytes_read = serial.readBytes(buffer, 15);
+                
+                // if we have the missing 15 bytes and the end byte is also correct
+                if(bytes_read == 15 && buffer[14] == 3){
+                    string s = ofToString(buffer);
+                    speed = ofToFloat(s.substr(0, 4));
+                    direction = ofToFloat(s.substr(5, 5));
+//                    ofLog() << "[wind] updated wind sensor: speed=" << speed << " direction=" << direction;
+                }
             }
         }
-        else{ ofLog() << "only got " << bytes_read << " of the expected 16 bytes from sensor"; }
     }
     else if ( ofGetElapsedTimef() - last_fake_update > 60){
         last_fake_update = ofGetElapsedTimef();
-        
-//        speed += ofRandom(-3.0, 3.0);
-//        if(speed < 0) speed = 0;
-//        else if (speed > speed_max) speed = speed_max;
         
         speed = 5;
         
