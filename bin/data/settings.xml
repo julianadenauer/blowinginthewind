@@ -1,0 +1,184 @@
+<!--
+Settings for the installation "Blowing in the Wind" by Angela Bulloch
+v1, 20.07.2013, AdJ, mail@julianadenauer.de
+-->
+
+<network>
+    <activate>false</activate>
+    <local_ip_address>192.168.1.2</local_ip_address>
+    <mh1_ip_address>192.168.1.10</mh1_ip_address>
+    <mh2_ip_address>192.168.1.11</mh2_ip_address>
+    <mh1_universe>0</mh1_universe>
+    <mh2_universe>1</mh2_universe>
+</network>
+
+<wind_sensor>
+    <fake>true</fake>
+    <port>tty.usbserial-FTF3W7NL</port>
+    <!--<port>/dev/ttyUSB0</port> -->
+    <speed_max>20.0</speed_max> <!-- in m/s => 20 = 72km/h -->
+</wind_sensor>
+
+<heads>
+    <mh1>
+        <location>
+            <x>11.0</x>
+            <y>0</y>
+            <z>20.0</z>
+        </location>
+        <focus>24029</focus>
+        <defocus>0</defocus>
+        <zoom>65535</zoom>
+        <iris>0</iris>
+        <dimmer>65535</dimmer>
+    </mh1>
+   
+    <mh2>
+        <location>
+            <x>-11.0</x>
+            <y>0</y>
+            <z>20.0</z>
+        </location>
+        <focus>24029</focus>
+        <defocus>0</defocus>
+        <zoom>65535</zoom>
+        <iris>0</iris>
+        <dimmer>65535</dimmer>
+    </mh2>
+</heads>
+
+<building>
+    <height>37.52</height>
+    <width>26.23</width>
+</building>
+
+<display>
+    <draw_debug>false</draw_debug>
+    <scaling>18.0</scaling>
+</display>
+
+<program>
+   <auto_state_shift>true</auto_state_shift>
+   <time_mode>0</time_mode> <!-- 0 == REAL_TIME, 1 == DELTA_TIME, 2 == MANUAL_TIME -->
+</program>
+
+<animations>
+    <stillandblowing>
+        <mh1><x>9.5</x><y>15.0</y></mh1>
+        <mh2><x>-10.0</x><y>15.0</y></mh2>
+    </stillandblowing>
+
+
+    <mirror>
+        <speed>1.0</speed>
+        <area>
+            <left>-10.0</left>
+            <right>10.0</right>
+            <top>25.0</top>
+            <bottom>5.0</bottom>
+        </area>
+    </mirror>
+    
+    <chase_jump>
+        <speed>
+            <leader>4.0</leader>
+            <follower>2.0</follower>
+        </speed>
+        <area>
+            <left>-13.0</left>
+            <right>13.0</right>
+            <top>30.0</top>
+            <bottom>5.0</bottom>
+        </area>
+    </chase_jump>
+    
+    <gravity>
+        <speed>4.0</speed>
+        <initial_velocity>
+            <mh1>
+                <x>0.0</x>
+                <y>0.0</y>
+            </mh1>
+            <mh2>
+                <x>0.0</x>
+                <y>0.0</y>
+            </mh2>
+        </initial_velocity>
+    </gravity>
+    
+    <circle>
+        <radius>3.5</radius>
+        <area>
+            <left>-10.0</left>
+            <right>10.0</right>
+            <top>25.0</top>
+            <bottom>4.5</bottom>
+        </area>
+        <rotation_speed>
+            <min>0.005</min>
+            <max>4</max>
+        </rotation_speed>
+    </circle>
+    
+    <egg>
+        <radius>2.0</radius>
+        <zoom>48423</zoom>
+        <focus>25000</focus>
+        <iris>29854</iris>
+    </egg>
+    
+    <chase>
+        <speed>
+            <leader>0.8</leader>
+            <follower>0.4</follower>
+        </speed>
+        <area>
+            <left>-10.0</left>
+            <right>10.0</right>
+            <top>25.0</top>
+            <bottom>3.0</bottom>
+        </area>
+    </chase>
+    
+    <eyes>
+        <area>
+            <left>-10.0</left>
+            <right>1.0</right>
+            <top>25.0</top>
+            <bottom>20.0</bottom>
+        </area>
+        <distance>11.0</distance>
+    </eyes>
+    
+    <bounce>
+        <speed>4.0</speed>
+    </bounce>
+    
+    <overlap>
+        <area>
+            <left>-5</left>
+            <right>5</right>
+            <top>12.0</top>
+            <bottom>6.0</bottom>
+       </area>
+       <speed>0.2</speed>
+       <zoom>50000</zoom>
+       <focus>65535</focus>
+       <defocus>61530</defocus>
+    </overlap>
+
+</animations>
+
+<physics>
+    <scaling_factor>100.0</scaling_factor>
+    <particle_radius>1.0</particle_radius>
+    <attraction>0.5</attraction>
+    <bounce>1.0</bounce>
+    <drag>0.998</drag>
+    <area>
+        <left>-11.0</left>
+        <right>11.0</right>
+        <top>25.0</top>
+        <bottom>2.0</bottom>
+    </area>
+</physics>
