@@ -3,7 +3,7 @@
 //--------------------------------------------------------------
 void testApp::setup(){
 
-    ofLogToFile(ofGetTimestampString("%Y-%m-%d") + "_startup.log");
+    ofLogToFile("logs/" + ofGetTimestampString("%Y-%m-%d") + "_startup.log");
     
 #ifdef ENABLE_OPENGL
     ofLog() << "openGL is enabled";
@@ -373,7 +373,7 @@ void testApp::update(){
                 day_init_done = true;
                 
                 
-                ofLogToFile(ofGetTimestampString("%Y-%m-%d") + ".log");
+                ofLogToFile("logs/" + ofGetTimestampString("%Y-%m-%d") + ".log");
                 current_hour_color_id = -1;
                 state = -1;
 
