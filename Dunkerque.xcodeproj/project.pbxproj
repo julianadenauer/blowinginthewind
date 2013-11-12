@@ -114,6 +114,7 @@
 		50df87d612c5aae17aafa6c02c6bc570 /* ofxXmlSettings.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxXmlSettings.cpp; path = ../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp; sourceTree = SOURCE_ROOT; };
 		6C7023D3182BE4FE00559A08 /* CustomTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CustomTime.cpp; sourceTree = "<group>"; };
 		6C7023D4182BE4FE00559A08 /* CustomTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTime.h; sourceTree = "<group>"; };
+		6CF0D72B18321FFF0005025E /* settings.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = settings.xml; path = bin/data/settings.xml; sourceTree = SOURCE_ROOT; };
 		7e56a83bf2909b1811adb15c78487f81 /* ofxLibArtnet.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxLibArtnet.h; path = ../../../addons/ofxLibArtnet/src/ofxLibArtnet.h; sourceTree = SOURCE_ROOT; };
 		832bdc407620cdba568b713d2252c43c /* tinyxmlerror.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = tinyxmlerror.cpp; path = ../../../addons/ofxXmlSettings/libs/tinyxmlerror.cpp; sourceTree = SOURCE_ROOT; };
 		B97ED65E179C4F2800AF1BF5 /* guiBaseObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = guiBaseObject.cpp; sourceTree = "<group>"; };
@@ -563,6 +564,7 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				6CF0D72B18321FFF0005025E /* settings.xml */,
 				B9B6A96F177AF5D00078A330 /* MovingHead.cpp */,
 				B9B6A970177AF5D00078A330 /* MovingHead.h */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
