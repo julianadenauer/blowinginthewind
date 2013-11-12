@@ -4,7 +4,7 @@ v1, 20.07.2013, AdJ, mail@julianadenauer.de
 -->
 
 <network>
-    <activate>false</activate>
+    <activate>true</activate>
     <local_ip_address>192.168.1.2</local_ip_address>
     <mh1_ip_address>192.168.1.10</mh1_ip_address>
     <mh2_ip_address>192.168.1.11</mh2_ip_address>
@@ -12,8 +12,13 @@ v1, 20.07.2013, AdJ, mail@julianadenauer.de
     <mh2_universe>1</mh2_universe>
 </network>
 
+<program>
+    <auto_state_shift>true</auto_state_shift>
+    <time_mode>0</time_mode> <!-- 0 == REAL_TIME, 1 == DELTA_TIME, 2 == MANUAL_TIME -->
+</program>
+
 <wind_sensor>
-    <fake>true</fake>
+    <fake>false</fake>
     <port>tty.usbserial-FTF3W7NL</port>
     <!--<port>/dev/ttyUSB0</port> -->
     <speed_max>20.0</speed_max> <!-- in m/s => 20 = 72km/h -->
@@ -56,11 +61,6 @@ v1, 20.07.2013, AdJ, mail@julianadenauer.de
     <draw_debug>false</draw_debug>
     <scaling>18.0</scaling>
 </display>
-
-<program>
-   <auto_state_shift>true</auto_state_shift>
-   <time_mode>0</time_mode> <!-- 0 == REAL_TIME, 1 == DELTA_TIME, 2 == MANUAL_TIME -->
-</program>
 
 <animations>
     <stillandblowing>
@@ -158,8 +158,8 @@ v1, 20.07.2013, AdJ, mail@julianadenauer.de
         <area>
             <left>-5</left>
             <right>5</right>
-            <top>12.0</top>
-            <bottom>6.0</bottom>
+            <top>15.0</top>
+            <bottom>8.0</bottom>
        </area>
        <speed>0.2</speed>
        <zoom>50000</zoom>
